@@ -21,19 +21,19 @@ elseif (mysql_num_rows(mysql_query($sql_mailCheca)) > 0)
 elseif (mysql_query($sql_registro))
 	echo "Ususario registrado correctamente";
 else 
-	echo "Error crítico.";
+	echo "Error crï¿½tico.";
 
 
 
 function generador($longitud,$letras_min,$letras_may,$numeros,$simbolos)
 {
-	//Evaluamos [$variable?] si queremos letras minúsculas; Si sí agregamos la letras minúsculas
+	//Evaluamos [$variable?] si queremos letras minï¿½sculas; Si sï¿½ agregamos la letras minï¿½sculas
 	// Si NO [:'';] , no agregamos nada.
 	$variacteres = $letras_min?'abdefghijklmnopqrstuvwxyz':'';
-	//Hacemos lo mismo para letras mayúsculas,numeros y simbolos
+	//Hacemos lo mismo para letras mayï¿½sculas,numeros y simbolos
 	$variacteres .= $letras_may?'ABDCEFGHIJKLMNOPQRSTUVWXYZ':'';
 	$variacteres .= $numeros?'0123456789':''; //NOTA: En el tutorial puse mal esta variable debe ser -numeros- y no -numero-.
-	$variacteres .= $simbolos?'!#$%&/()?¡¿':'';
+	$variacteres .= $simbolos?'!#$%&/()?ï¿½ï¿½':'';
 	
 	//Inicializamos variable $i y $clv
 	$i = 0;
@@ -45,7 +45,7 @@ function generador($longitud,$letras_min,$letras_may,$numeros,$simbolos)
 			//Generamos un numero aleatorio
 			$numrad = rand(0,strlen($variacteres)-1);
 			//Sacamos el la letra al azar
-			//La función -substr()- se compone de substr($variable,posición_inicio,longitud de sub cadena);
+			//La funciï¿½n -substr()- se compone de substr($variable,posiciï¿½n_inicio,longitud de sub cadena);
 			$clv .= substr($variacteres,$numrad,1);
 			//Aumentamos a $i en 1 cada que entramos al while
 			$i++;
