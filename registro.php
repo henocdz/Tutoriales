@@ -1,5 +1,5 @@
 <?
-
+// 
 $id_usuario = generador(5,false,false,true,false);
 $nombreUsuario = $_POST["nombreUsuario"];
 $mail = $_POST["mail"];
