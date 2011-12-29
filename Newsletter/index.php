@@ -88,146 +88,146 @@
 </html>
 
 <?
-	
-	function getTitle($a)
-	{
-		$id = $_GET["id"];
-		
-		if(!(isset($id)) || strlen($id)<11 || strlen($id)>11)
-			unset($a);
-		
-		if($a=="confirmar")
-			$title = "Confirma tu Suscripción";
-		elseif($a=="eliminar")
-			$title = "¡Adiós!";
-		else
-			$title = "¡Bienvenido!";
-		
-		return $title;
-	}
-	
-	
-	function getBody($a)
-	{
-		$bd = new bd();
-		$id = $_GET["id"];
-		$ver = $bd->verify1("usuario","id_usuario",$id,1);
 
-		if(!(isset($id)) || strlen($id)<11 || strlen($id)>11 || !($ver))
-			unset($a);
-		
-		if($a=="confirmar")
-			$body = '
-				<div id="formsub">
-					<form name="usuario">
-						<label for="nombre">Como te decimos?</label>
-						<input type="text" name="op2" id="nombre" placeholder="Nombre,Apodo,etc..." autocomplete="off"/>
-						<div id="status">
-							<input type="button" value="Confirmar"/>
-						</div>
-					</form>
-				</div>				
-			';
-		elseif($a=="eliminar")
-		{
-			$del = $bd->delete("usuario","id_usuario",$id,1);
-			
-			if($del && $ver)
-				$mssg = "SUSCRIPCIÓN CANCELADA! <br /> Lamentamos que te vayas, pero recuerda que siempre puedes volver! :)";
-			else
-				$mssg = "Oops! Ha ocurrido un error. Intenta recargando la página";
-			
-			
-			$body = '
-				<div id="formsub" style="height: 50px; font-size: 15px;">
-					<label style="cursor:default;">'.$mssg.'</label>
+function getTitle($a)
+{
+$id = $_GET["id"];
+
+if(!(isset($id)) || strlen($id)<11 || strlen($id)>11)
+	unset($a);
+
+if($a=="confirmar")
+	$title = "Confirma tu Suscripción";
+elseif($a=="eliminar")
+	$title = "¡Adiós!";
+else
+	$title = "¡Bienvenido!";
+
+return $title;
+}
+
+
+function getBody($a)
+{
+$bd = new bd();
+$id = $_GET["id"];
+$ver = $bd->verify1("usuario","id_usuario",$id,1);
+
+if(!(isset($id)) || strlen($id)<11 || strlen($id)>11 || !($ver))
+	unset($a);
+
+if($a=="confirmar")
+	$body = '
+		<div id="formsub">
+			<form name="usuario">
+				<label for="nombre">Como te decimos?</label>
+				<input type="text" name="op2" id="nombre" placeholder="Nombre,Apodo,etc..." autocomplete="off"/>
+				<div id="status">
+					<input type="button" value="Confirmar"/>
 				</div>
-			';			
-		}
-		else
-			$body = '
-				<div id="formsub">
-					<form name="usuario">
-						<label for="mail">ESCRIBE TU EMAIL</label>
-						<input type="text" name="op2" id="mail" placeholder="No mordemos..." autocomplete="off"/>
-						<div id="status">
-							<input type="button" value="SUSCRIBIRME"/>
-						</div>
-					</form>
-				</div>				
-			';
-			
-			$bd->close();
-			
-		return $body;			
-	}
+			</form>
+		</div>				
+	';
+elseif($a=="eliminar")
+{
+	$del = $bd->delete("usuario","id_usuario",$id,1);
 	
-	function getJS($a)
-	{
-		
-		$bd = new bd();
-		$id = $_GET["id"];
-		$ver = $bd->verify1("usuario","id_usuario",$id,1);
+	if($del && $ver)
+		$mssg = "SUSCRIPCIÓN CANCELADA! <br /> Lamentamos que te vayas, pero recuerda que siempre puedes volver! :)";
+	else
+		$mssg = "Oops! Ha ocurrido un error. Intenta recargando la página";
+	
+	
+	$body = '
+		<div id="formsub" style="height: 50px; font-size: 15px;">
+			<label style="cursor:default;">'.$mssg.'</label>
+		</div>
+	';			
+}
+else
+	$body = '
+		<div id="formsub">
+			<form name="usuario">
+				<label for="mail">ESCRIBE TU EMAIL</label>
+				<input type="text" name="op2" id="mail" placeholder="No mordemos..." autocomplete="off"/>
+				<div id="status">
+					<input type="button" value="SUSCRIBIRME"/>
+				</div>
+			</form>
+		</div>				
+	';
+	
+	$bd->close();
+	
+return $body;			
+}
 
-		if(!(isset($id)) || strlen($id)<11 || strlen($id)>11 || !($ver) || (!($a=="eliminar") && !($a=="confirmar")))
-			$a="agregar";
-				
-		$js = '
-			<script src="http://code.jquery.com/jquery-1.7.1.min.js"></script>
-			<script type="text/javascript">
-				$(document).ready(function (){
-					var a = "'.$a.'";
-					var id = "'.$id.'";
-					
-					$('."'".'#formsub input[type="button"]'."'".').click(function (){
-					
-						$.ajax({
-							beforeSend: function (){
-								$("#status").html("<img src='."'".'loading.gif'."'".' width='."'".'30'."'".'/>");
-							},
-							url: "newsletter.php?a="+a,
-							type: "POST",
-							data: {id:id,op2:document.usuario.op2.value},
-							success: function(data)
-							{
-								
-								if(data=="Correct")
-								{
-									if(a=="confirmar")
-										$("#status").html("<label><img src='."'".'ok.png'."'".' width=30 style='."'".'vertical-align:middle;'."'".'/>Suscripción Activada! Pronto Recibiras noticias de nosotros!</label>");
-									else
-										$("#status").html("<label><img src='."'".'ok.png'."'".' width=30 style='."'".'vertical-align:middle;'."'".'/>Listo! Checa tu correo (Y Quizá SPAM)</label>");
-								}
-								else
-								{
-									$("#status").html("<label><img src='."'".'error.png'."'".' width=30 style='."'".'vertical-align:middle;'."'".'/>Hubo un Error!</label>");
-								}
-								
-							}
-						});					
-					});
-				});
-			</script>
-		';
+function getJS($a)
+{
+
+$bd = new bd();
+$id = $_GET["id"];
+$ver = $bd->verify1("usuario","id_usuario",$id,1);
+
+if(!(isset($id)) || strlen($id)<11 || strlen($id)>11 || !($ver) || (!($a=="eliminar") && !($a=="confirmar")))
+	$a="agregar";
 		
-		return $js;
-	}
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
+$js = '
+	<script src="http://code.jquery.com/jquery-1.7.1.min.js"></script>
+	<script type="text/javascript">
+		$(document).ready(function (){
+			var a = "'.$a.'";
+			var id = "'.$id.'";
+			
+			$('."'".'#formsub input[type="button"]'."'".').click(function (){
+			
+				$.ajax({
+					beforeSend: function (){
+						$("#status").html("<img src='."'".'loading.gif'."'".' width='."'".'30'."'".'/>");
+					},
+					url: "newsletter.php?a="+a,
+					type: "POST",
+					data: {id:id,op2:document.usuario.op2.value},
+					success: function(data)
+					{
+						
+						if(data=="Correct")
+						{
+							if(a=="confirmar")
+								$("#status").html("<label><img src='."'".'ok.png'."'".' width=30 style='."'".'vertical-align:middle;'."'".'/>Suscripción Activada! Pronto Recibiras noticias de nosotros!</label>");
+							else
+								$("#status").html("<label><img src='."'".'ok.png'."'".' width=30 style='."'".'vertical-align:middle;'."'".'/>Listo! Checa tu correo (Y Quizá SPAM)</label>");
+						}
+						else
+						{
+							$("#status").html("<label><img src='."'".'error.png'."'".' width=30 style='."'".'vertical-align:middle;'."'".'/>Hubo un Error!</label>");
+						}
+						
+					}
+				});					
+			});
+		});
+	</script>
+';
+
+return $js;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 ?>
