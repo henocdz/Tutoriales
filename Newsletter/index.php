@@ -2,6 +2,9 @@
 	require_once("bdz.php");	
 	$a = $_GET["a"];
 ?>
+<!--
+	Tutorial en: www.youtube.com/roofdierdz
+-->
 <!DOCTYPE html>
 <html lang="es">
 <head>
