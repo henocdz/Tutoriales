@@ -1,0 +1,118 @@
+a
+{
+	color: #000;
+	text-decoration:none;
+}
+
+a:hover time,a:hover
+{
+	text-decoration: underline;
+}
+
+body,html
+{
+	background: rgb(98,98,98);
+	color:#000;
+	font-family: Arial,Helvetica,sans-serif;
+	font-size:10px;
+	margin:0;
+	padding:0;
+	width:100%;
+}
+
+#tweets,#finder
+{
+	background: rgb(109,109,109);
+	display:block;
+	padding-bottom:20px;
+	margin:0 auto;
+	width: 400px;
+}
+
+
+#finder
+{
+	display: block;
+	font-size:2.4em;
+	height:5%;
+	line-height: 100%;
+	margin-top:5%;
+	padding:0.8em;
+	width:362px !important;
+}
+
+#finder form
+{
+	color:#000;
+	display:block;
+	height:100%;
+	width:100%;
+}
+
+#finder label
+{
+	display:inline-block;
+	height:100%;
+	width:56%;
+}
+
+#finder_form input[type=search]
+{
+	background: rgb(54,54,54);
+	border:0;
+	color:#FFF;
+	display: inline-block;
+	font-size:0.7em;
+	outline:0;
+	width:40%;
+}
+
+
+#tweets .tweet
+{
+	background:rgb(194,194,194);
+	width:100%;
+	display:block;
+	height:108px;
+}
+
+#tweets	.tweet .capsutweet
+{
+	display: block;
+	width:95.6%;
+	padding:10px;
+	height:82px;
+}
+
+#tweets .tweet .user_pic
+{
+	background: rgb(161,161,161);
+	float:left;
+	margin-right:15px;
+	width:76px;
+	overflow:hidden;
+	height:74px;
+}
+
+
+#tweets .tweet .user_text
+{
+	display: inline-block;
+	width:280px;
+	height:52px;
+}
+
+#tweets .tweet .septweet
+{
+	background:rgb(157,157,157);
+	display: block;
+	border:0;
+	outline:0;
+	height:18px;
+}
+
+
+#tweets .time_info
+{
+	display:inline-block;
+}
