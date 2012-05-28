@@ -20,8 +20,8 @@ $(function (){
           $.each(tweets.results, function(i,tweet){
 
           	/*
-				Para mas informacion sobre los parametros y atributos que
-				se devuelve por cada tweet, visitar: https://dev.twitter.com/docs/api/1/get/search
+				Para mas informacion sobre los objetos y sus atributos que
+				se devuelven por cada "tweet", visitar: https://dev.twitter.com/docs/api/1/get/search
           	*/
 
           	var pp = tweet.profile_image_url.replace('_normal','');
